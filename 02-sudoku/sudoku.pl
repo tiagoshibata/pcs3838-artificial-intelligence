@@ -9,6 +9,7 @@
  * * Em cada linha, todos os elementos são distintos;
  * * Em cada coluna, todos os elementos são distintos;
  * * Blocos 3x3 são válidos;
+ * Detalhes linha por linha podem ser vistos no relatório
  */
 sudoku(Rows) :-
         length(Rows, 9), maplist(same_length(Rows), Rows),
@@ -21,6 +22,11 @@ sudoku(Rows) :-
         blocks(Ds, Es, Fs),
         blocks(Gs, Hs, Is).
 
+/*
+ * Utilizamos recursão para verificar os blocos. Para cada trio de linhas recebido, extrai-se as 3 primeiras
+ * colunas da cabeça da lista e verifica-se se todos os elementos são distintos, continuando a recursão no
+ * restante da linha. A recursão acaba se não houver mais elementos na linha.
+ */
 blocks([], [], []).
 blocks([N1,N2,N3|Ns1], [N4,N5,N6|Ns2], [N7,N8,N9|Ns3]) :-
         all_distinct([N1,N2,N3,N4,N5,N6,N7,N8,N9]),
@@ -103,3 +109,14 @@ problem(7, [[_,_,_,2,6,_,7,_,1],
             [_,_,9,3,_,_,_,7,4],
             [_,4,_,_,5,_,_,3,6],
             [7,_,3,_,1,8,_,_,_]]).
+
+% Válido
+problem(8, [[1,_,_,_,_,7,_,9,_],
+            [_,3,_,_,2,_,_,_,8],
+            [_,_,9,6,_,_,5,_,_],
+            [_,_,5,3,_,_,9,_,_],
+            [_,1,_,_,8,_,_,_,2],
+            [6,_,_,_,_,4,_,_,_],
+            [3,_,_,_,_,_,_,1,_],
+            [_,4,_,_,_,_,_,_,7],
+            [_,_,7,_,_,_,3,_,_]]).
